@@ -35,8 +35,17 @@ Both folders "masterStrom" and "twitterApp" are Eclipse projects, that use maven
 	The output of this aplication is a file with a line with the Top 3 words of each language, yocan modify this parameter in the source code, in "ReduceBolt.java"
 	Example of the output
 		[es,word1,word2,word3],[en,word1,word2,word3],[jp,word1,,]
-
-	You can run this aplication in a server or in a local machine. If you want, you should read the documentation of Storm to run it.
+	
+	To change the length of the "window" for the top words, you have to change the parameter in the class "TopKTopology.java", line 27 
+	"builder.setBolt("mapBolt", new MapBolt(600,200), 3)" being the 600, the seconds of the window, so you can change to your length.
+	You can run this aplication in a server or in a local machine. 
+	To run in the server, you have to run:
+		StormSubmitter.submitTopology("TopKTopology", conf,builder.createTopology());
+	To run in a local cluster, you have to run:
+		LocalCluster cluster = new LocalCluster();
+		cluster.submitTopology("TopKTopology", conf,builder.createTopology());
+		
+	If you want, you should read the documentation of Storm to run it.
 
 	
 	
